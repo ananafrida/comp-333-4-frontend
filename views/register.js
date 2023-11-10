@@ -26,7 +26,7 @@ export default function LoginPage({ navigation }) {
   const onRegisterClick = () => {
     axios
       .post(
-        "http://localhost:80/index.php/user/register",
+        "http://172.21.229.212/index.php/user/register",
         {
           username: email,
           password: password,
@@ -64,7 +64,7 @@ export default function LoginPage({ navigation }) {
       <Text style={styles.header}>Register Page</Text>
       <KeyboardAwareScrollView>
         <TextInput
-          placeholder="Email"
+          placeholder="Username"
           onChangeText={setEmail}
           value={email}
           style={styles.input}
