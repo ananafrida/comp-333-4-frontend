@@ -41,7 +41,7 @@ export default function LoginPage({ navigation }) {
           // Successful login, set the user and store login data
           console.log(response.data);
           setUsername(response.data.username);
-          navigation.replace("Main", { username });
+          navigation.replace("Main", { username: response.data.username });
         } else {
           Alert.alert("Login Failed", "Incorrect Username or Password", [
             { text: "OK", onPress: () => console.log("OK Pressed") },
