@@ -29,7 +29,7 @@ export default function LoginPage({ navigation }) {
   const onLogin = () => {
     axios
       .post(
-        "http://localhost:80/index.php/user/login",
+        "http://172.21.229.212/index.php/user/login",
         {
           username: email,
           password: password,
@@ -41,7 +41,7 @@ export default function LoginPage({ navigation }) {
           // Successful login, set the user and store login data
           console.log(response.data);
           setUsername(response.data.username);
-          navigation.replace("Main", { username });
+          navigation.replace("Main", { username: response.data.username });
         } else {
           Alert.alert("Login Failed", "Incorrect Username or Password", [
             { text: "OK", onPress: () => console.log("OK Pressed") },
@@ -61,7 +61,7 @@ export default function LoginPage({ navigation }) {
       <Text style={styles.header}>Login Page</Text>
       <KeyboardAwareScrollView>
         <TextInput
-          placeholder="Email"
+          placeholder="Username"
           onChangeText={setEmail}
           value={email}
           style={styles.input}
