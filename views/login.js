@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 import {
   View,
@@ -9,6 +10,7 @@ import {
   StyleSheet,
   Button,
   TextInput,
+  Alert,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -18,13 +20,40 @@ import { NavigationContainer } from "@react-navigation/native";
 export default function LoginPage({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   const onRegisterClick = () => {
     navigation.navigate("Register");
   };
 
   const onLogin = () => {
-    navigation.navigate("Main");
+    axios
+      .post(
+        "http://localhost:80/index.php/user/login",
+        {
+          username: email,
+          password: password,
+        },
+        { withCredentials: true }
+      )
+      .then((response) => {
+        if (response.data.success) {
+          // Successful login, set the user and store login data
+          console.log(response.data);
+          setUsername(response.data.username);
+          navigation.replace("Main", { username });
+        } else {
+          Alert.alert("Login Failed", "Incorrect Username or Password", [
+            { text: "OK", onPress: () => console.log("OK Pressed") },
+          ]);
+        }
+      })
+      .catch((error) => {
+        Alert.alert("Login Failed", error, [
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]);
+        // Handle login error, display an error message, etc.
+      });
   };
 
   return (
