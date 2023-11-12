@@ -27,7 +27,7 @@ export default function MainPage({ route }) {
 
   // Function to fetch songs
   const query = () => {
-    fetch("http://172.21.229.212/index.php/music/list")
+    fetch("http://172.21.9.38/index.php/music/list")
       .then((response) => response.json())
       .then((data) => {
         setSongs(data);
@@ -46,10 +46,10 @@ export default function MainPage({ route }) {
     navigation.navigate("Update", { songId });
   };
 
-  // Function to handle delete button press
-  const handleDelete = (songId) => {
-    navigation.navigate("Delete", { songId });
-  };
+// Function to handle delete button press
+const handleDelete = (songId) => {
+  navigation.navigate("Delete", { songId, username });
+};
 
   // Function to handle view button press
   const handleRead = (songId, song, artist, rating) => {
