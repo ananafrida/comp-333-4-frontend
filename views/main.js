@@ -27,7 +27,7 @@ export default function MainPage({ route }) {
 
   // Function to fetch songs
   const query = () => {
-    fetch("http://172.21.229.212/index.php/music/list")
+    fetch("http://172.21.9.38/index.php/music/list")
       .then((response) => response.json())
       .then((data) => {
         setSongs(data);
@@ -42,8 +42,8 @@ export default function MainPage({ route }) {
   };
 
   // Function to handle update button press
-  const handleUpdate = (songId) => {
-    navigation.navigate("Update", { songId });
+  const handleUpdate = (songId, song, artist, rating) => {
+    navigation.navigate("Update", { songId, song, artist, rating, username});
   };
 
   // Function to handle delete button press
@@ -100,7 +100,7 @@ export default function MainPage({ route }) {
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity
                     style={styles.iconButton}
-                    onPress={() => handleUpdate(item.id)}
+                    onPress={() => handleUpdate(item.id, item.song, item.artist, item.rating)}
                   >
                     <Icon name="pencil" size={20} color="#fff" />
                   </TouchableOpacity>
