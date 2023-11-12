@@ -38,7 +38,12 @@ export default function Create ({ navigation }) {
       )
       .then((response) => {
             if (response.data.success) {
-                navigation.goBack();
+              navigation.reset({
+                index: 0,
+                routes: [
+                  { name: "Main", params: { username: username } },
+                ],
+              });
             }
             else {
                 Alert.alert("Create Failed", response.data.message, [
