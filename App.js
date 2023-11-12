@@ -14,7 +14,6 @@ import ReadPage from "./views/read";
 import DeletePage from "./views/delete";
 import CreatePage from "./views/create";
 
-
 export default function App() {
   const Stack = createStackNavigator();
 

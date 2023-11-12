@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation , useIsFocused} from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function MainPage({ route }) {
@@ -18,15 +18,16 @@ export default function MainPage({ route }) {
   const [error, setError] = useState(null);
   const { username } = route.params;
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     // Fetch songs when the component mounts
-    query();
-  }, []);
+    isFocused && query();
+  }, [isFocused]);
 
   // Function to fetch songs
   const query = () => {
-    fetch("http://172.21.9.38/index.php/music/list")
+    fetch("http://172.21.229.212/index.php/music/list")
       .then((response) => response.json())
       .then((data) => {
         setSongs(data);
@@ -51,8 +52,8 @@ export default function MainPage({ route }) {
   };
 
   // Function to handle view button press
-  const handleRead = (songId) => {
-    navigation.navigate("Read", { songId });
+  const handleRead = (songId, song, artist, rating) => {
+    navigation.navigate("Read", { songId, song, artist, rating, username });
   };
 
   // Function to handle create button press
@@ -114,7 +115,7 @@ export default function MainPage({ route }) {
               {/* View button */}
               <TouchableOpacity
                 style={styles.viewButton}
-                onPress={() => handleRead(item.id)}
+                onPress={() => handleRead(item.id, item.song, item.artist, item.rating)}
               >
                 <Text style={styles.viewButtonText}>View</Text>
               </TouchableOpacity>
