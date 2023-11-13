@@ -42,8 +42,8 @@ export default function MainPage({ route }) {
   };
 
   // Function to handle update button press
-  const handleUpdate = (songId) => {
-    navigation.navigate("Update", { songId });
+  const handleUpdate = (songId, song, artist, rating) => {
+    navigation.navigate("Update", { songId, song, artist, rating, username});
   };
 
 // Function to handle delete button press
@@ -100,7 +100,7 @@ const handleDelete = (songId) => {
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity
                     style={styles.iconButton}
-                    onPress={() => handleUpdate(item.id)}
+                    onPress={() => handleUpdate(item.id, item.song, item.artist, item.rating)}
                   >
                     <Icon name="pencil" size={20} color="#fff" />
                   </TouchableOpacity>
