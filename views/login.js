@@ -29,7 +29,7 @@ export default function LoginPage({ navigation }) {
   const onLogin = () => {
     axios
       .post(
-        "http://172.21.9.38/index.php/user/login",
+        "http://172.21.229.212/index.php/user/login",
         {
           username: email,
           password: password,

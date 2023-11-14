@@ -19,7 +19,7 @@ export default function Delete({ navigation }) {
       }
 
       // Send a delete request to the server
-      const response = await fetch("http://172.21.9.38/index.php/music/delete", {
+      const response = await fetch("http://172.21.229.212/index.php/music/delete", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
