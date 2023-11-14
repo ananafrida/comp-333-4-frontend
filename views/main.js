@@ -48,7 +48,7 @@ export default function MainPage({ route }) {
 
   // Function to filter songs based on the artist
   const filteredSongs = songs.filter((song) =>
-    song.artist.toLowerCase().startsWith(search.toLowerCase())
+    song.artist.toLowerCase().includes(search.toLowerCase())
   );
 
 
