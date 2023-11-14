@@ -26,7 +26,7 @@ export default function LoginPage({ navigation }) {
   const onRegisterClick = () => {
     axios
       .post(
-        "http://172.21.9.38/index.php/user/register",
+        "http://172.21.229.212/index.php/user/register",
         {
           username: email,
           password: password,

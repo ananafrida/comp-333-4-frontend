@@ -30,6 +30,18 @@ export default function Create ({ navigation }) {
 
   const onCreate = () => {
 
+    // Validate rating: must be between 1 and 5
+    const isValidRating = /^[1-5]$/.test(rating);
+
+    if (!isValidRating) {
+      // Display an error message or take appropriate action for an invalid rating
+      Alert.alert("Invalid rating.", " Please enter a number between 1 and 5.", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+
+      return;
+    }
+
     axios
       .post(
         "http://172.21.229.212/index.php/music/create",
