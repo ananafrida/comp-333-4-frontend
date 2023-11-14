@@ -42,6 +42,17 @@ Our app follows the Model-View-Controller (MVC) design pattern, which separates 
 
 In addition to the required CRUD operations, we have implemented **Search functionality**. The search functionality allows the users to search for songs and artists by using fuzzy search.
 
+## Other Details
+
+We used IP addresses in the following files:
+1. main.js
+2. update.js
+3. register.js
+4. login.js
+5. delete.js
+6. create.js
+
+
 ## Team Contribution
 
 Assuming all the tasks are completed by the assigned member, the contribution for this project is as follows:
