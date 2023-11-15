@@ -40,7 +40,12 @@ Our app follows the Model-View-Controller (MVC) design pattern, which separates 
 
 ## Feature Implementation
 
-In addition to the required CRUD operations, we have implemented **Search functionality**. The search functionality allows the users to search for songs and artists by using fuzzy search.
+In addition to the required CRUD operations, we have implemented **Search functionality**. The search functionality allows the users to search for artists by using fuzzy search. For now, it shows up all the artists name including whatever letter/letters were searched for (Feature checked with TA)
+
+## External Resources/ Libraries
+We used the following libraries in our code:
+1. KeyboardAwareScrollView  from "react-native-keyboard-aware-scroll-view";
+2. Icon from "react-native-vector-icons/FontAwesome";
 
 ## Other Details
 
