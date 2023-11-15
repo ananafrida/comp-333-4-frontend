@@ -94,7 +94,6 @@ const handleDelete = (songId) => {
             <View style={styles.songItem}>
               <Text style={styles.songTitle}>{`${item.song}`}</Text>
               <Text>{`by ${item.artist}`}</Text>
-              <Text>{`Rating: ${item.rating}`}</Text>
               {/* Update/Delete buttons */}
               {item.username === username && (
                 <View style={styles.buttonContainer}>
