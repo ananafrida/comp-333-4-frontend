@@ -14,6 +14,8 @@ import {
     Alert,
   } from "react-native";
 import axios from "axios";
+import Icon from "react-native-vector-icons/FontAwesome";
+
 
 export default function Create ({ navigation }) {
   const route = useRoute();
@@ -44,7 +46,7 @@ export default function Create ({ navigation }) {
 
     axios
       .post(
-        "http://172.21.9.38/index.php/music/create",
+        "http://172.21.229.212/index.php/music/create",
         {artist: artist, song: song, rating: rating},
         { withCredentials: true }
       )
@@ -70,6 +72,26 @@ export default function Create ({ navigation }) {
           });
   }
 
+    // Function to handle star press
+    const handleStarPress = (selectedRating) => {
+      setRating(selectedRating);
+    };
+  
+    // Function to render stars
+    const renderStars = () => {
+      const starIcons = [];
+  
+      for (let i = 1; i <= 5; i++) {
+        starIcons.push(
+          <TouchableOpacity key={i} onPress={() => handleStarPress(i)}>
+            <Icon name={i <= rating ? "star" : "star-o"} size={30} color="orange" />
+          </TouchableOpacity>
+        );
+      }
+  
+      return starIcons;
+    };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Create!</Text>
@@ -91,12 +113,7 @@ export default function Create ({ navigation }) {
           value={song}
           style={styles.input}
         />        
-        <TextInput
-        placeholder="Rating"
-        onChangeText={setRating}
-        value={rating}
-        style={styles.input}
-        />
+        <View style={styles.starContainer}>{renderStars()}</View>
         <View style={styles.button}></View>
         <Button title="Submit" onPress={onCreate} style={styles.button} />
         <View style={styles.button}></View>
@@ -140,5 +157,11 @@ const styles = StyleSheet.create({
       marginTop: 20,
       backgroundColor: "#000000",
     },
+    starContainer: {
+      flexDirection: "row",
+      marginBottom: 16,
+      margin: 20,
+    },
+  
   });
   
