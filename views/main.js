@@ -31,7 +31,7 @@ export default function MainPage({ route }) {
 
   // Function to fetch songs
   const query = () => {
-    fetch("http://172.21.229.212/index.php/music/list")
+    fetch("http://172.21.9.38/index.php/music/list")
       .then((response) => response.json())
       .then((data) => {
         setSongs(data);
@@ -143,7 +143,7 @@ export default function MainPage({ route }) {
               <TouchableOpacity
                 style={styles.viewButton}
                 onPress={() =>
-                  handleRead(item.id, item.song, item.artist, item.rating)
+                  handleRead(item.id, item.song, item.artist, item.rating, item.username)
                 }
               >
                 <Text style={styles.viewButtonText}>View</Text>
