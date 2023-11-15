@@ -44,7 +44,7 @@ export default function Create ({ navigation }) {
 
     axios
       .post(
-        "http://172.21.229.212/index.php/music/create",
+        "http://172.21.9.38/index.php/music/create",
         {artist: artist, song: song, rating: rating},
         { withCredentials: true }
       )

@@ -27,7 +27,7 @@ export default function MainPage({ route }) {
 
   // Function to fetch songs
   const query = () => {
-    fetch("http://172.21.229.212/index.php/music/list")
+    fetch("http://172.21.9.38/index.php/music/list")
       .then((response) => response.json())
       .then((data) => {
         setSongs(data);
@@ -94,7 +94,6 @@ const handleDelete = (songId) => {
             <View style={styles.songItem}>
               <Text style={styles.songTitle}>{`${item.song}`}</Text>
               <Text>{`by ${item.artist}`}</Text>
-              <Text>{`Rating: ${item.rating}`}</Text>
               {/* Update/Delete buttons */}
               {item.username === username && (
                 <View style={styles.buttonContainer}>
