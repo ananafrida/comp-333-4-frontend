@@ -6,24 +6,28 @@ import {
   StyleSheet,
   ActivityIndicator,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
-import axios from "axios";
-import { useNavigation , useIsFocused} from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
+
 
 export default function MainPage({ route }) {
   // State variables
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { username } = route.params;
+  const [username] = useState(route.params.username);
+  const [search, setSearch] = useState("");
   const navigation = useNavigation();
   const isFocused = useIsFocused();
+
 
   useEffect(() => {
     // Fetch songs when the component mounts
     isFocused && query();
   }, [isFocused]);
+
 
   // Function to fetch songs
   const query = () => {
@@ -41,30 +45,42 @@ export default function MainPage({ route }) {
       });
   };
 
+
+  // Function to filter songs based on the artist
+  const filteredSongs = songs.filter((song) =>
+    song.artist.toLowerCase().includes(search.toLowerCase())
+  );
+
+
   // Function to handle update button press
   const handleUpdate = (songId, song, artist, rating) => {
-    navigation.navigate("Update", { songId, song, artist, rating, username});
+    navigation.navigate("Update", { songId, song, artist, rating, username });
   };
 
-// Function to handle delete button press
-const handleDelete = (songId) => {
-  navigation.navigate("Delete", { songId, username });
-};
+
+  // Function to handle delete button press
+  const handleDelete = (songId) => {
+    navigation.navigate("Delete", { songId, username });
+  };
+
 
   // Function to handle view button press
   const handleRead = (songId, song, artist, rating, songUser) => {
     navigation.navigate("Read", { songId, song, artist, rating, username, songUser });
   };
 
+
   // Function to handle create button press
   const handleCreate = () => {
     navigation.navigate("Create", { username });
   };
 
+
   // Function to handle logout button press
   const handleLogout = () => {
     navigation.navigate("Login");
   };
+
 
   return (
     <View style={styles.container}>
@@ -78,8 +94,18 @@ const handleDelete = (songId) => {
         Taylor Swift is the best!
       </Text>
 
+
       {/* Welcome Text */}
       <Text style={styles.header}>Welcome, {username}!</Text>
+
+
+      {/* Search bar */}
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Search by artist..."
+        onChangeText={(text) => setSearch(text)}
+      />
+
 
       {/* Loading/Error/FlatList Section */}
       {loading ? (
@@ -88,7 +114,7 @@ const handleDelete = (songId) => {
         <Text style={styles.errorText}>{error}</Text>
       ) : (
         <FlatList
-          data={songs}
+          data={filteredSongs}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View style={styles.songItem}>
@@ -99,7 +125,9 @@ const handleDelete = (songId) => {
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity
                     style={styles.iconButton}
-                    onPress={() => handleUpdate(item.id, item.song, item.artist, item.rating)}
+                    onPress={() =>
+                      handleUpdate(item.id, item.song, item.artist, item.rating)
+                    }
                   >
                     <Icon name="pencil" size={20} color="#fff" />
                   </TouchableOpacity>
@@ -114,7 +142,9 @@ const handleDelete = (songId) => {
               {/* View button */}
               <TouchableOpacity
                 style={styles.viewButton}
-                onPress={() => handleRead(item.id, item.song, item.artist, item.rating, item.username)}
+                onPress={() =>
+                  handleRead(item.id, item.song, item.artist, item.rating)
+                }
               >
                 <Text style={styles.viewButtonText}>View</Text>
               </TouchableOpacity>
@@ -122,6 +152,7 @@ const handleDelete = (songId) => {
           )}
         />
       )}
+
 
       {/* Create and Logout Buttons */}
       <TouchableOpacity style={styles.createButton} onPress={handleCreate}>
@@ -133,7 +164,6 @@ const handleDelete = (songId) => {
     </View>
   );
 }
-
 //styling section starts here
 const styles = StyleSheet.create({
   container: {
@@ -220,4 +250,13 @@ const styles = StyleSheet.create({
   customFont: {
     fontSize: 15, // Adjust the font size as needed
   },
+  searchInput: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 16,
+    paddingHorizontal: 8,
+  },
 });
+
+
