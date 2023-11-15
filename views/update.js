@@ -50,7 +50,7 @@ export default function Update({ navigation }) {
       }
 
       // Send updated song details to the server
-      const response = await fetch("http://172.21.9.38/index.php/music/update", {
+      const response = await fetch("http://172.21.229.212/index.php/music/update", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
