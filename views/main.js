@@ -143,7 +143,7 @@ export default function MainPage({ route }) {
               <TouchableOpacity
                 style={styles.viewButton}
                 onPress={() =>
-                  handleRead(item.id, item.song, item.artist, item.rating)
+                  handleRead(item.id, item.song, item.artist, item.rating, item.username)
                 }
               >
                 <Text style={styles.viewButtonText}>View</Text>
