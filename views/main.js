@@ -65,8 +65,8 @@ export default function MainPage({ route }) {
 
 
   // Function to handle view button press
-  const handleRead = (songId, song, artist, rating) => {
-    navigation.navigate("Read", { songId, song, artist, rating, username });
+  const handleRead = (songId, song, artist, rating, songUser) => {
+    navigation.navigate("Read", { songId, song, artist, rating, username, songUser });
   };
 
 
@@ -120,7 +120,6 @@ export default function MainPage({ route }) {
             <View style={styles.songItem}>
               <Text style={styles.songTitle}>{`${item.song}`}</Text>
               <Text>{`by ${item.artist}`}</Text>
-              <Text>{`Rating: ${item.rating}`}</Text>
               {/* Update/Delete buttons */}
               {item.username === username && (
                 <View style={styles.buttonContainer}>

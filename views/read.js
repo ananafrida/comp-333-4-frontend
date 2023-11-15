@@ -15,6 +15,7 @@ export default function Read ({ navigation }) {
   const [artist, setArtist] = useState(route.params?.artist);
   const [song, setSong] = useState(route.params?.song);
   const [rating, setRating] = useState(route.params?.rating);
+  const [songUser, setSongUser] = useState(route.params?.songUser);
 
   useEffect(() => {
     setUsername(route.params?.username);
@@ -32,10 +33,15 @@ export default function Read ({ navigation }) {
     setRating(route.params?.rating);
   }, [route.params?.rating]);
 
+  useEffect(() => {
+    setSongUser(route.params?.songUser);
+  }, [route.params?.songUser]);
+
   return (
     <View style={styles.container}>
+        <Text style={styles.info}>Logged in as {username}</Text>
         <Text style={styles.title}>Username</Text>
-        <Text style={styles.info}>{username}</Text>
+        <Text style={styles.info}>{songUser}</Text>
         <Text style={styles.title}>artist</Text>
         <Text style={styles.info}>{artist}</Text>
         <Text style={styles.title}>song</Text>

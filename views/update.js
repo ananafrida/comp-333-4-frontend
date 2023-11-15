@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function Update({ navigation }) {
   const route = useRoute();
@@ -34,7 +35,7 @@ export default function Update({ navigation }) {
 
     // Validate rating: must be between 1 and 5
     const isValidRating = /^[1-5]$/.test(rating);
-  
+
     if (!isValidRating) {
       // Display an error message or take appropriate action for an invalid rating
       console.error("Invalid rating. Please enter a number between 1 and 5.");
@@ -47,7 +48,7 @@ export default function Update({ navigation }) {
         console.error("SongId is missing in route params");
         return;
       }
-  
+
       // Send updated song details to the server
       const response = await fetch("http://172.21.9.38/index.php/music/update", {
         method: "POST",
@@ -61,14 +62,14 @@ export default function Update({ navigation }) {
           rating: parseInt(rating), // Convert rating back to integer
         }),
       });
-  
+
       const data = await response.json();
-  
+
       // Check the response and handle accordingly
       if (data.success) {
         // Song updated successfully
         // Navigate to the "Main" screen
-        navigation.navigate("Main",  { username: username });
+        navigation.navigate("Main", { username: username });
       } else {
         // Update failed, handle error
         console.error("Update failed:", data.error);
@@ -85,6 +86,26 @@ export default function Update({ navigation }) {
   const handleCancelUpdate = () => {
     // Navigate back to the "Main" screen
     navigation.navigate("Main", { username });
+  };
+
+  // Function to handle star press
+  const handleStarPress = (selectedRating) => {
+    setRating(selectedRating);
+  };
+
+  // Function to render stars
+  const renderStars = () => {
+    const starIcons = [];
+
+    for (let i = 1; i <= 5; i++) {
+      starIcons.push(
+        <TouchableOpacity key={i} onPress={() => handleStarPress(i)}>
+          <Icon name={i <= rating ? "star" : "star-o"} size={30} color="orange" />
+        </TouchableOpacity>
+      );
+    }
+
+    return starIcons;
   };
 
   return (
@@ -106,13 +127,7 @@ export default function Update({ navigation }) {
         placeholder={artist} // Prefill old artist as placeholder
       />
       <Text style={styles.label}>Rating:</Text>
-      <TextInput
-        style={styles.input}
-        value={String(rating)} // Convert rating to string
-        onChangeText={(text) => setRating(text)}
-        keyboardType="numeric" // Set keyboard type to numeric for rating
-        placeholder={String(rating)} // Prefill old rating as placeholder
-      />
+      <View style={styles.starContainer}>{renderStars()}</View>
       <TouchableOpacity style={styles.updateButton} onPress={handleUpdate}>
         <Text style={styles.buttonText}>Update Song</Text>
       </TouchableOpacity>
@@ -163,4 +178,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 16,
   },
+  starContainer: {
+    flexDirection: "row",
+    marginBottom: 16,
+  },
 });
+
+
