@@ -60,7 +60,7 @@ We used IP addresses in the following files:
 
 ## Team Contribution
 
-Assuming all the tasks are completed by the assigned member, the contribution for this project is as follows:
+The contribution for this project is as follows:
 <br />
 <br />
 Nishant Aggarwal ([@n-aggarwal](https://github.com/n-aggarwal)): 50% <br />
